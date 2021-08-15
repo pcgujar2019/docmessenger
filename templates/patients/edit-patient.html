@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <h5 class="title">Edit {{ patient.full_name }}</h5>
+                </div>
+                <div>
+                    <form action="{% url 'allPatients' %}" method="GET">
+                        <button class="btn btn-info">BACK</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="row justify-content-md-center">
+                        <div class="alert alert-danger col-md-auto" role="alert">
+                            {{ message }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="row mt-3 p-1">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{ form.case_paper_number|as_crispy_field }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form.gender|as_crispy_field }}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-sm-12 col-md-5">
+                                    {{ form.full_name|as_crispy_field }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.birth_date|as_crispy_field }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.age|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ form.city|as_crispy_field }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.pin_code|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="form-group col-md-3">
+                                    {{ form.mobile_number|as_crispy_field }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.email|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ form.referred_by|as_crispy_field }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info mt-3" name='update'>UPDATE</button>
+                            <button type="submit" class="btn btn-danger mt-3" name='delete'>DELETE</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block jquery %}
+<script>
+    $(document).ready(function () {
+
+        //  change date format for birth date input
+        $("#id_birth_date").datepicker({
+            format: 'dd-mm-yyyy',
+        });
+
+        // Set and change full name input's text as Mr. OR Mrs.
+
+
+        // Calculate the age based on the birthdate
+        $('#id_birth_date').change(function () {
+            var today = new Date();
+            var input = this.value;
+            d1 = input.indexOf("-");
+            d2 = input.lastIndexOf("-");
+
+            var dd = input.slice(0, d1)
+            var mm = input.slice(d1 + 1, d2)
+            var yy = input.slice(d2 + 1, input.length)
+
+            var birthDate = new Date(yy, mm, dd);
+            var age = today.getFullYear() - birthDate.getFullYear();
+
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            $('#id_age').val(age);
+        })
+    });
+</script>
+{% endblock jquery %}

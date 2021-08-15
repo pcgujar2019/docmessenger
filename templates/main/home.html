@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 col-sm-12">
+        <div class="card p-3">
+            <div class="card-header">
+                <h5 class="title">HOME</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column bd-highlight mb-3">
+                    <div class="pl-2 bd-highlight d-flex flex-row align-items-center justify-content-between">
+                        <div>
+                            <a href="{% url 'allPatients' %}">
+                                <h5><b>Total Patients: 34</b></h5>
+                            </a>
+                        </div>
+                        <div>
+                            <form action="{% url 'addPatient' %}" method="get">
+                                <button class="btn btn-primary">ADD NEW</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div class="pl-2 bd-highlight d-flex flex-row align-items-center justify-content-between">
+                        <div>
+                            <a href="" style="color: #1BEB11;">
+                                <h5><b>Appointments</b></h5>
+                            </a>
+                        </div>
+                        <div>
+                            <button class="btn btn-success">ADD NEW</button>
+                        </div>
+                    </div>
+
+
+                    <div class="pl-2">
+                        <h6>Today: 4</h6>
+                    </div>
+
+                    <div class="pl-2 mt-2">
+                        <h6>Tomorrow: 3</h6>
+                    </div>
+
+                    <br><br><br>
+
+                    <div class="pl-2">
+                        <button class="btn btn-info btn-lg"><b>SEND SMS</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
