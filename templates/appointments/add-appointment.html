@@ -32,19 +32,77 @@
 
                     <div class="row mt-3 p-1">
                         <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-6">
+                            <div class="row ml-1">
+                                <div class="col-xs-6 mr-2">
                                     {{ form.on_date|as_crispy_field }}
                                 </div>
-                                <div class="col-6">
-                                    {{ form.at_time|as_crispy_field }}
+                                <div class="col-xs-6">
+                                    <div class="mob "> 
+                                        <label class="text-grey mr-1">Time</label> 
+                                        <input class="ml-1 form-control" required list="times" type="time" name="at_time"> 
+                                        <datalist id="times">
+                                            <option value="09:00:00">
+                                            <option value="09:15:00">
+                                            <option value="09:30:00">
+                                            <option value="09:45:00">
+                                            <option value="10:00:00">
+                                            <option value="10:15:00">
+                                            <option value="10:30:00">
+                                            <option value="10:45:00">
+                                            <option value="11:00:00">
+                                            <option value="11:15:00">
+                                            <option value="11:30:00">
+                                            <option value="11:45:00">
+                                            <option value="12:00:00">
+                                            <option value="12:15:00">
+                                            <option value="12:30:00">
+                                            <option value="12:45:00">
+                                            <option value="13:00:00">
+                                            <option value="13:15:00">
+                                            <option value="13:30:00">
+                                            <option value="13:45:00">
+                                            <option value="14:00:00">
+                                            <option value="14:15:00">
+                                            <option value="14:30:00">
+                                            <option value="14:45:00">
+                                            <option value="15:00:00">
+                                            <option value="15:15:00">
+                                            <option value="15:30:00">
+                                            <option value="15:45:00">
+                                            <option value="16:00:00">
+                                            <option value="16:15:00">
+                                            <option value="16:30:00">
+                                            <option value="16:45:00">
+                                            <option value="17:00:00">
+                                            <option value="17:15:00">
+                                            <option value="17:30:00">
+                                            <option value="17:45:00">
+                                            <option value="18:00:00">
+                                            <option value="18:00:00">
+                                            <option value="18:15:00">
+                                            <option value="18:30:00">
+                                            <option value="18:45:00">
+                                            <option value="19:00:00">
+                                            <option value="19:15:00">
+                                            <option value="19:45:00">
+                                            <option value="20:00:00">
+                                            <option value="20:15:00">
+                                            <option value="20:30:00">
+                                            <option value="20:45:00">
+                                            <option value="21:00:00">
+                                            <option value="21:15:00">
+                                            <option value="21:30:00">
+                                            <option value="21:45:00">
+                                            <option value="22:00:00">
+                                        </datalist>
+                                    </div>
                                 </div>
                             </div>
 
 
                             <div class="row">
                                 <div class="form-group col-sm-12 col-md-5">
-                                    {{ form.patient|as_crispy_field }}
+                                    {{ form.patient_name|as_crispy_field }}
                                 </div>
                                 <div class="col-md-4">
                                     {{ form.note|as_crispy_field }}
@@ -63,12 +121,18 @@
 {% endblock content %}
 
 {% block jquery %}
+
 <script>
     $(document).ready(function () {
 
         //  change date format for birth date input
-        $("#id_birth_date").datepicker({
+        $("#id_on_date").datepicker({
             format: 'dd-mm-yyyy',
+        });
+        datepicker.formatDate("dd-mm-yyyy")
+
+        $("#id_patient_name").autocomplete({
+            source: "{% url 'fetchpatients' %}"
         });
 
         var number = '{{ casepapernumber }}';
@@ -107,4 +171,6 @@
         })
     });
 </script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock jquery %}
