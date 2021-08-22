@@ -31,7 +31,7 @@ def addPatient(request):
         except ValueError:
             messages.add_message(request, messages.ERROR, 'Please submit valid data!')
             return render(request, 'main/add-patient.html', {'casepapernumber': casepapernumber, 'form':form})
-    return render(request, 'patients/add-patient.html', {})
+    
 
 def allPatients(request):
     if request.method == 'GET':

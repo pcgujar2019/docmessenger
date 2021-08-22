@@ -26,12 +26,14 @@
 
                     <div class="pl-2 bd-highlight d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <a href="" style="color: #1BEB11;">
+                            <a href="{% url 'allAppointments' %}" style="color: #1BEB11;">
                                 <h5><b>Appointments</b></h5>
                             </a>
                         </div>
                         <div>
-                            <button class="btn btn-success">ADD NEW</button>
+                            <form action="{% url 'addAppointment' %}" method="get">
+                                <button class="btn btn-success">ADD NEW</button>
+                            </form>
                         </div>
                     </div>
 

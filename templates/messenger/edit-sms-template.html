@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <h5 class="title">Edit Template <small>({{ template.title }})</small> </h5>
+                </div>
+                <div>
+                    <form action="{% url 'allSmsTemplates' %}" method="GET">
+                        <button class="btn btn-info">Templates</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="row justify-content-md-center">
+                        <div class="alert alert-danger col-md-auto" role="alert">
+                            {{ message }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="row mt-3 p-1">
+                        <div class="col-sm-12">
+                            <div class="row ">
+                                <div class="col-sm-12 mr-2">
+                                    {{ form.category|as_crispy_field }}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-sm-12 col-md-5">
+                                    {{ form.title|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ form.sms_body|as_crispy_field }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3" name='update'>Update</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block jquery %}
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+{% endblock jquery %}
