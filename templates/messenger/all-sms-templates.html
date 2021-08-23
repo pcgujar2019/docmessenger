@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <div>
-                    <h5 class="title">Sms Templates</h5>
+                    <h5 class="title">Sms Templates ({{ templates.count }})</h5>
                 </div>
                 <div>
                     <form action="{% url 'addSmsTemplate' %}" method="GET">
@@ -27,41 +27,24 @@
                 {% endfor %}
                 {% endif %}
 
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class="text-primary">
-                            <th>
-                                Category
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                SMS Text
-                            </th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody>
-                            {% for template in templates %}
-                            <tr>
-                                <td>
-                                    {{template.category}}
-                                </td>
-                                <td>
-                                    {{template.title}}
-                                </td>
-                                <td>
-                                    {{template.sms_body}}
-                                </td>
-                                <td>
-                                    <a href="{% url 'editSmsTemplate' template.id %}"
-                                        class="btn btn-info btn-sm">Edit</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+
+
+                {% for template in templates %}
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h6>{{ template.title }}</h6>
+                            <small>{{ template.category }}</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'editSmsTemplate' template.id %}" method="GET">
+                            <button class="btn btn-info btn-sm">View/Edit</button>
+                        </form>
+                    </div>
                 </div>
+                {% endfor %}
+
             </div>
         </div>
     </div>

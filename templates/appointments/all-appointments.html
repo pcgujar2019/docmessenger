@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <h5 class="title">Appointments</h5>
+                </div>
+                <div>
+                    <form action="{% url 'addAppointment' %}" method="GET">
+                        <button class="btn btn-danger"><i class="fas fa-plus pr-2"></i>ADD NEW</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="row justify-content-md-center">
+                    <div class="alert alert-success col-md-auto" role="alert">
+                        {{ message }}
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+
+                <div class="search-appointment mb-5">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="col-sm-2 d-flex flex-row align-items-end">
+                            <div class="form-group">
+                                <label for="dateInput">Select Date</label>
+                                <input type="date" class="form-control" id="dateInput" name='dateInput'>
+                            </div>
+                            <div class="ml-2">
+                                <button class="btn btn-primary" type="submit" name="searchByDate">Search</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div>
+                        {% if aptsOnDate %}
+                        <h6>Appointments on ({{ onDate|date }})</h6>
+
+                        <div>
+                            <ul class="list-group mt-3">
+                                {% for aptOnDate in aptsOnDate %}
+                                <li class="list-group-item">
+                                    {{ aptOnDate.patient_name }} - {{ aptOnDate.at_time }} <br>
+                                    {{ aptOnDate.note }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% else %}
+                        {% if onDate %}
+                        <div>
+                            No Appointments on {{ onDate|date }}
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+
+                {% if aptsOnDate %}
+                {% else %}
+                <div class="today mb-5 mt-2">
+                    <h6>Today's Appointments ({{today|date}})</h6>
+
+                    {% if todayApts %}
+                    <div>
+                        <ul class="list-group mt-3">
+                            {% for todayApt in todayApts %}
+                            <li class="list-group-item">
+                                {{ todayApt.patient_name }} - {{ todayApt.at_time }} <br>
+                                {{ todayApt.note }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div>
+                        No Appointments for Today
+                    </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="today">
+                    <h6>Tomorrow's Appointments ({{ tomorrow|date }})</h6>
+
+                    {% if tomorrowApts %}
+                    <div>
+                        <ul class="list-group mt-3">
+                            {% for tomorrowApt in tomorrowApts %}
+                            <li class="list-group-item">
+                                {{ tomorrowApt.patient_name }} - {{ tomorrowApt.at_time }} <br>
+                                {{ tomorrowApt.note }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div>
+                        No Appointments Tomorrow
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block jquery %}
+<script>
+    $(document).ready(function () {
+
+
+    });
+</script>
+{% endblock jquery %}
